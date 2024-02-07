@@ -1,1 +1,40 @@
 /* В этом файле будут храниться все значения переменных в исходном состоянии, а так же их изменения в зависимости от ширины устройства */
+/* Создаем 4 переменные типографики по заданию */
+
+:root {
+  /* Основной шрифт страницы */
+  --page-main-font: "Inter", sans-serif;
+  /* Акцентный шрифт */
+  --page-accent-font: "PressStart2P", sans-serif;
+
+  /* Толщина основного шрифта */
+  --page-main-font-weight: 400;
+  /* Толщина тескта заголовков карточек */
+  --page-main-title-weight: 700;
+
+  /* цвет фона */
+  --page-background-color: #ffffff;
+
+  /* акцентный цвет */
+  --page-text-color: #000000;
+
+  /* фон страницы */
+  --page-background-image: repeating-linear-gradient(
+      to left,
+      #d3d3d3 0 2px,
+      transparent 2px 4px
+    ),
+    repeating-linear-gradient(to bottom, #d3d3d3 0 2px, transparent 2px 4px),
+    linear-gradient(to bottom, #e7e7e7 0.01%, #1a1a1a);
+  /* Ограничение ширины блоков */
+  --max-width: 700px;
+
+  --button-text-color: #fff;
+
+  /* Переменная для цвета сердца  */
+  --heart-contour-color: #000;
+  /* Заливка Сердца */
+  --heart-color: #ff0000;
+
+  --accent-color: #000;
+}

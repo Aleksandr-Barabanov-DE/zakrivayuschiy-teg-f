@@ -12,3 +12,113 @@
 
 Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
 */
+/* АНИМАЦИЯ стрелки */
+@keyframes arrow {
+  from {
+    transform: translate(0px);
+  }
+
+  to {
+    transform: translateX(4px);
+  }
+}
+
+/* Сначала задаем цвета и переходы, но делаем прозрачными */
+.contour {
+  fill: var(--heart-contour-color);
+  transition: fill 0.3s 0.06s;
+}
+
+.core {
+  fill: var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.3s, fill 0.3s;
+}
+
+.main-body {
+  fill: var(--accent-color);
+  opacity: 0;
+  /* делаем задержку окрашивания 0.05s */
+  transition: opacity 0.3s 0.05s, fill 0.3s 0.05s;
+}
+
+.sparks {
+  fill: var(--heart-color);
+  opacity: 0;
+}
+
+/* Возвращаем цвава при взаимодействии */
+/* При наведении */
+.like-ikon:hover .core {
+  opacity: 1;
+}
+
+.like-icon:hover .main-body {
+  opacity: 1;
+}
+
+/* При нажатии и удержании */
+
+.like-icon:active .main-body {
+  opacity: 1;
+  fill: var(--heart-color);
+}
+
+.like-icon:active .core {
+  opacity: 1;
+  fill: var(--heart-color);
+}
+
+/* При клике */
+/* закрашивание основного тела */
+.like-icon.is-liked .main-body {
+  opacity: 1;
+  fill: var(--heart-color);
+}
+/* закрашивание контура  */
+.like-icon.is-liked .contour {
+  fill: var(--heart-color);
+  /* перекрашивание контура привыключении */
+  transition: fill 0.1s linear;
+}
+
+/* закрашивание ядра */
+.like-icon.is-liked .core {
+  opacity: 1;
+  fill: var(--heart-color);
+}
+
+/* Анимация увеличения размеров сердца через обращение к селектору heart */
+.like-icon.is-liked .heart {
+  /* обязательнно из центра */
+  transform-origin: center;
+  animation: heart-scale 0.3s 0.1s ease-in alternate;
+}
+
+@keyframes heart-scale {
+  0% {
+    scale: 1;
+  }
+  100% {
+    scale: 1.5;
+  }
+}
+
+/* Анимация искр */
+
+.like-icon.is-liked .sparks {
+  /* Эта анимация длится 0.3s  
+  и запускается через 0.3s однажды, 
+  с плавностью ease-in, в две стороны.  */
+  animation: sparks 0.3s 0.3s ease-in alternate;
+}
+
+@keyframes sparks {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

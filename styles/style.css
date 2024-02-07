@@ -17,4 +17,364 @@
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  background-color: var(--page-background-color);
+  color: var(--page-text-color);
+  background-image: var(--page-background-image);
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block-end: 100px;
+  padding-block-start: 100px;
+  font-family: var(--page-main-font);
+}
+
+.max__width {
+  width: min(100%, var(--max-width));
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--page-accent-font);
+  background-color: var(--page-background-color);
+  padding-block-start: clamp(7.5rem, 6.346rem + 4.923vw, 8.5rem);
+  padding-block-end: 25px;
+  border: 2px solid currentColor;
+}
+
+.header__logo {
+  font-size: clamp(3.0625rem, 2.7292rem + 1.4815vw, 4.0625rem);
+  text-transform: uppercase;
+}
+
+.header__title {
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  margin-block-start: 20px;
+  margin-block-end: 25px;
+  text-transform: uppercase;
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+}
+
+.theme-menu__item {
+  padding-left: 18px;
+}
+
+/* Стилизация кнопок переключения тем */
+.theme-menu__button {
+  display: flex;
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+  transition: opacity 0.3s ease;
+  font-size: 14px;
+}
+
+.theme-menu__button::after {
+  content: "";
+  position: absolute;
+
+  width: 100%;
+  height: 2px;
+  bottom: -3px;
+  background-color: currentColor;
+  transform-origin: left;
+  transform: scaleX(0); /* Начальное значение масштаба */
+  transition: transform 0.3s ease; /* Плавное изменение масштаба */
+}
+
+/* элемент после наведения */
+.theme-menu__button:hover::after {
+  transform: scaleX(1);
+}
+
+.theme-menu__button:focus {
+  outline: none;
+  opacity: 0.6;
+}
+
+.theme-menu__button:hover {
+  opacity: 0.6;
+}
+
+.theme-menu__button:hover:active {
+  opacity: 0.6;
+}
+
+/* делаем кнопку неактивной */
+.theme-menu__button:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Стрелка с анимацией через Disabled */
+/* В активном сотстоянии прячем элемент */
+.theme-menu__button:before {
+  content: "▶";
+  position: absolute;
+  left: -20px;
+  visibility: hidden;
+  animation: arrow 0.5s ease-in-out infinite alternate;
+}
+/* Делаем видимым при отключении кнопки */
+.theme-menu__button:disabled::before {
+  visibility: visible;
+}
+
+/* СЕКЦИЯ MAIN */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-block-start: 100px;
+  margin-block-end: 50px;
+}
+
+.card {
+  background-color: var(--page-background-color);
+  border: 2px solid currentColor;
+}
+
+.card__title {
+  padding: 4px 10px 6px;
+  font-weight: var(--page-main-title-weight);
+  font-size: 18px;
+}
+
+.card__image-wrapper {
+  position: relative;
+  margin: 0;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.card__image {
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  padding: 25px 25px;
+}
+
+.card__buttons {
+  align-self: flex-end;
+}
+
+.label {
+  position: absolute;
+  font-family: var(--page-accent-font);
+  font-size: 14px;
+  top: clamp(1.5625rem, 1.4183rem + 0.6154vw, 1.6875rem);
+  right: clamp(0.6875rem, -0.3221rem + 4.3077vw, 1.5625rem);
+}
+
+/* Проверка поддержки свойства mix-blend-mode и фоллбэк через text-shadow */
+@supports (mix-blend-mode: hard-light) {
+  .label {
+    mix-blend-mode: hard-light;
+  }
+}
+/* Фоллбэк для браузеров, не поддерживающих mix-blend-mode */
+.label {
+  opacity: 0.5;
+  text-shadow: 1px 1px var(--page-background-color);
+}
+
+/* Фильтры на изображения через */
+
+.card:nth-child(2) .card__image {
+  filter: hue-rotate(50deg);
+}
+
+.card:nth-of-type(3) .card__image {
+  filter: grayscale(0.8);
+}
+
+.card:nth-of-type(4) .card__image {
+  filter: sepia(50%);
+}
+
+.card:nth-of-type(5) .card__image {
+  filter: invert(0.7);
+}
+
+.card:nth-of-type(6) .card__image {
+  filter: brightness(120%);
+}
+
+.card:nth-of-type(7) .card__image {
+  filter: sepia(1) contrast(2);
+}
+.card:nth-of-type(8) .card__image {
+  filter: invert(1) saturate(60%) hue-rotate(90deg);
+}
+
+/* Cтилизация кнопок карточек 
+is-liked для состояния лайкнутого сердца*/
+
+.card__buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.card__like-button {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid currentColor;
+  background-color: transparent;
+  min-width: 130px;
+  border: 2px solid currentColor;
+  padding: 12.5px 37px;
+}
+
+.button__text {
+  font-family: var(--page-accent-font);
+  font-size: 14px;
+  color: var(--page-text-color);
+}
+
+/* меняем цвет надписм при смешивании 
+ символ > обозначает дочерние элементы первого уровня*/
+.button-fillable > * {
+  color: var(--button-text-color);
+  mix-blend-mode: difference;
+  position: relative;
+}
+
+.card__like-button:focus {
+  outline: none;
+  box-shadow: 2px 2px 0px var(--page-text-color);
+  transition: transform 0.3s ease;
+}
+
+/* Стилизуем кнопки при наведении */
+.card__like-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  background-color: black;
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card__like-button:hover::before {
+  transform: scaleX(1);
+}
+
+.like-icon {
+  cursor: pointer;
+}
+
+/* Стилизация сердца */
+/* Стилизация контейнера обводки кнопки сердце */
+.card__icon-button {
+  padding: 0;
+  display: flex;
+  border: 2px solid transparent;
+  background-color: transparent;
+  /* для появления обводки при фокусе */
+  transition: border 0.3s ease;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border: 2px solid currentColor;
+  transition: transform 0.3s ease;
+}
+
+/* footer */
+/* затемнение фона при нажатии */
+
+.footer {
+  background: var(--page-background-color, #fff);
+  max-width: calc(100% * 310 / 375);
+  font-family: var(--page-accent-font);
+}
+
+.footer__button {
+  gap: 8px;
+  padding: 15px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--page-background-color);
+}
+
+.footer__icon {
+  width: clamp(1.3125rem, 2.2548rem + -2.1538vw, 1.75rem);
+}
+
+.dialog {
+  color: var(--page-text-color);
+  border: 2px solid currentColor;
+  background-color: var(--page-background-color);
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: clamp(1.875rem, 3.221rem + -3.077vw, 2.5rem);
+  padding-right: clamp(1.875rem, 3.221rem + -3.077vw, 2.5rem);
+}
+
+.dialog[open] {
+  max-width: clamp(21.313rem, 20.159rem + 4.923vw, 22.313rem);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.dialog__icon {
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+}
+
+.dialog__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialog__text {
+  font-family: var(--page-text-color);
+  font-size: 14px;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+
+.dialog__button {
+  width: 100%;
+  background-color: var(--page-background-color);
+  text-transform: uppercase;
+  padding: 9px 17px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
 }
