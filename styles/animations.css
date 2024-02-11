@@ -23,6 +23,10 @@
   }
 }
 
+.like-icon {
+  cursor: pointer;
+}
+
 /* Сначала задаем цвета и переходы, но делаем прозрачными */
 .contour {
   fill: var(--heart-contour-color);
@@ -49,8 +53,9 @@
 
 /* Возвращаем цвава при взаимодействии */
 /* При наведении */
-.like-ikon:hover .core {
+.like-icon:hover .core {
   opacity: 1;
+  fill: var(--accent-color);
 }
 
 .like-icon:hover .main-body {

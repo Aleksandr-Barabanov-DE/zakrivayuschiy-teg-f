@@ -30,7 +30,7 @@
   font-family: var(--page-main-font);
 }
 
-.max__width {
+.container {
   width: min(100%, var(--max-width));
 }
 
@@ -81,12 +81,13 @@
   border: none;
   transition: opacity 0.3s ease;
   font-size: 14px;
+  text-decoration: none;
 }
 
 .theme-menu__button::after {
   content: "";
   position: absolute;
-
+  left: 0;
   width: 100%;
   height: 2px;
   bottom: -3px;
@@ -96,22 +97,25 @@
   transition: transform 0.3s ease; /* Плавное изменение масштаба */
 }
 
-/* элемент после наведения */
-.theme-menu__button:hover::after {
+.theme-menu__button:hover::after,
+.theme-menu__button:focus::after {
   transform: scaleX(1);
 }
 
 .theme-menu__button:focus {
+  opacity: 0.6;
+}
+
+.theme-menu__button:hover,
+.theme-menu__button:active {
+  opacity: 0.6;
   outline: none;
-  opacity: 0.6;
+  text-decoration: none; /* Убираем подчеркивание ссылки */
 }
 
-.theme-menu__button:hover {
-  opacity: 0.6;
-}
-
-.theme-menu__button:hover:active {
-  opacity: 0.6;
+/* Добавляем подчеркивание при фокусе */
+.theme-menu__button:focus::after {
+  transform: scaleX(1);
 }
 
 /* делаем кнопку неактивной */
@@ -125,6 +129,7 @@
 .theme-menu__button:before {
   content: "▶";
   position: absolute;
+  top: 0;
   left: -20px;
   visibility: hidden;
   animation: arrow 0.5s ease-in-out infinite alternate;
@@ -173,6 +178,8 @@
   flex-direction: column;
   gap: 27px;
   padding: 25px 25px;
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .card__buttons {
@@ -200,31 +207,30 @@
 }
 
 /* Фильтры на изображения через */
-
-.card:nth-child(2) .card__image {
+.hue__filter {
   filter: hue-rotate(50deg);
 }
 
-.card:nth-of-type(3) .card__image {
+.grayscale__filter {
   filter: grayscale(0.8);
 }
 
-.card:nth-of-type(4) .card__image {
+.sepia__filter {
   filter: sepia(50%);
 }
 
-.card:nth-of-type(5) .card__image {
+.invert__filter {
   filter: invert(0.7);
 }
 
-.card:nth-of-type(6) .card__image {
+.brightness__filter {
   filter: brightness(120%);
 }
 
-.card:nth-of-type(7) .card__image {
+.mix__filter {
   filter: sepia(1) contrast(2);
 }
-.card:nth-of-type(8) .card__image {
+.double-mix__filter {
   filter: invert(1) saturate(60%) hue-rotate(90deg);
 }
 
@@ -238,16 +244,21 @@ is-liked для состояния лайкнутого сердца*/
 }
 
 .card__like-button {
+  display: flex; /* Используем flexbox */
+  justify-content: center; /* Выравниваем текст по центру горизонтально */
+  align-items: center; /* Выравниваем текст по центру вертикально */
   position: relative;
   cursor: pointer;
   border: 2px solid currentColor;
   background-color: transparent;
-  min-width: 130px;
+  max-width: 130px;
+  max-height: 38px;
   border: 2px solid currentColor;
   padding: 12.5px 37px;
 }
 
 .button__text {
+  flex: 1;
   font-family: var(--page-accent-font);
   font-size: 14px;
   color: var(--page-text-color);
@@ -261,14 +272,26 @@ is-liked для состояния лайкнутого сердца*/
   position: relative;
 }
 
-.card__like-button:focus {
+.button-fillable:focus {
   outline: none;
-  box-shadow: 2px 2px 0px var(--page-text-color);
-  transition: transform 0.3s ease;
+}
+
+.button-fillable:focus-visible {
+  box-shadow: 2px 2px 0px 0px var(--page-text-color);
+}
+
+.button-fillable {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid currentColor;
+  background: var(--page-background-color, #fff);
+  font-family: var(--page-accent-font);
+  font-size: 14px;
+  transition: box-shadow ease 0.3s;
 }
 
 /* Стилизуем кнопки при наведении */
-.card__like-button:before {
+.button-fillable:before {
   content: "";
   position: absolute;
   top: 0;
@@ -276,13 +299,14 @@ is-liked для состояния лайкнутого сердца*/
   width: 100%;
   height: 100%;
   transform: scaleX(0);
-  background-color: black;
+  background-color: var(--accent-color);
   transform-origin: left;
   transition: transform 0.5s ease-in-out;
 }
 
 .card__like-button:hover::before {
   transform: scaleX(1);
+  transition: transform 0.3s ease;
 }
 
 .like-icon {
@@ -325,11 +349,28 @@ is-liked для состояния лайкнутого сердца*/
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: var(--page-background-color);
 }
 
 .footer__icon {
   width: clamp(1.3125rem, 2.2548rem + -2.1538vw, 1.75rem);
+}
+
+.footer__button-fillable:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  background-color: var(--accent-color);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.footer__button-fillable:hover::before {
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
 }
 
 .dialog {
@@ -375,6 +416,6 @@ is-liked для состояния лайкнутого сердца*/
   padding: 9px 17px;
 }
 
-dialog::backdrop {
+.dialog__backdrop::backdrop {
   background-color: rgba(0, 0, 0, 0.75);
 }
